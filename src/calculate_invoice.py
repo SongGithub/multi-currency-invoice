@@ -74,7 +74,12 @@ class Invoice(object):
             - output: line_total (rounding using Google Sheets ROUND func)
         """
         line_currency = line['currency']
-        return round(line['amount'] / self.get_exchange_rate(line), 2)
+        if line['amount'] >= 0:
+            line_total = line['amount'] / self.get_exchange_rate(line)
+        else:
+            print("Error: line amount should be greater than 0")
+            sys.exit(10)
+        return round(line_total, 2)
 
     def calculate_invoice_total(self):
         """

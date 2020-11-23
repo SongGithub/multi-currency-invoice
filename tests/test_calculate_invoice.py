@@ -99,6 +99,7 @@ class TestInvoice(unittest.TestCase):
             json={"rates":{"AUD":0.9421205098,"USD": 0.6541135574},"base":"NZD","date":"2020-07-07"},
             status=200
         )
+
         mock_line_usd = {"description":"Intel Core i9","currency":"USD","amount":700}
         self.instance = Invoice(self.valid_input_data)
         self.instance.prepare_currency_cache()
@@ -106,11 +107,17 @@ class TestInvoice(unittest.TestCase):
             self.instance.calculate_line_total(mock_line_usd),
             1070.17
         )
+
         mock_line_aud = {"description":"Intel Core i9","currency":"AUD","amount":500}
         self.assertEqual(
             self.instance.calculate_line_total(mock_line_aud),
             530.73
         )
+        # should reject negative amount
+        mock_line_negative = {"description":"Intel Core i9","currency":"AUD","amount":-500}
+        with self.assertRaises(SystemExit) as custom_exception:
+            self.instance.calculate_line_total(mock_line_negative)
+        self.assertEqual(custom_exception.exception.code,10)
 
     @responses.activate
     def test_calculate_invoice_total(self):

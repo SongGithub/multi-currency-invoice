@@ -4,7 +4,6 @@ import sys,json,os
 
 from process_input import ProcessInputFile
 from calculate_invoice import Invoice
-import settings
 
 def main():
 
@@ -14,7 +13,7 @@ def main():
     print(input_data)
     invoice_instance = Invoice(input_data)
 
-    print(invoice_instance.generate_request_items())
+    print(invoice_instance.prepare_currency_cache())
 
     print('1600.86'+'\n')
     # if json_data:

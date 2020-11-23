@@ -8,7 +8,7 @@ class TestProcessInputFile(unittest.TestCase):
 
     def setUp(self):
         self.input_filepath = settings.TEST_FIXTURE_ITEM
-        self.valid_input_data = {"invoice":{"currency":"NZD","date":"2020-07-07","lines":[{"description":"Intel Core i9","currency":"USD","amount":700},{"description":"ASUS ROG Strix","currency":"AUD","amount":500}]}}
+        print("===============",settings.TEST_FIXTURE_ITEM)
 
     def test_read_json_can_read_valid_input_file(self):
         self.instance = ProcessInputFile(self.input_filepath)

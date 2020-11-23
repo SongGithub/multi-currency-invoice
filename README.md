@@ -35,7 +35,9 @@ a faster feedback loop. Otherwise, `docker build` will take time unnecessarily .
 
 ## Tool of choice
 
-- *nosetests*: It nicely abstracts issues of Python relative-path when running
-unittests and running the app
+- *nosetests*: It nicely abstracts issues of using relative-path import when running
+unittests and the app using run.sh. i.e. When runing test, `import settings`
+will cause error "module: setting not found", because tests are not running from
+the same Python package(folder), but from root directory.
 
 - *responses*: It mocks the API's response in a quick and determinstic fashion.
